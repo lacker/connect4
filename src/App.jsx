@@ -123,17 +123,19 @@ function App() {
           {isRedTurn ? "Red's Turn" : "Blue's Turn"}
         </div>
       )}
-      <div className="board">
+      <div className="board" tabIndex="-1">
         {board.map((column, colIndex) => (
           <div 
             key={colIndex} 
             className="column"
             onClick={() => handleColumnClick(colIndex)}
+            tabIndex="-1"
           >
             {column.map((cell, rowIndex) => (
               <div 
                 key={rowIndex} 
                 className={`cell ${cell}`}
+                tabIndex="-1"
               />
             ))}
           </div>

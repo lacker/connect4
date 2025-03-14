@@ -59,12 +59,20 @@
   padding: 10px;
   border-radius: 10px;
   margin-top: 20px;
+  outline: none;
+  user-select: none;
 }
 
 .column {
   display: flex;
   flex-direction: column-reverse; /* To match Connect 4 orientation with bottom row first */
   cursor: pointer;
+  outline: none;
+  user-select: none;
+}
+
+.column:focus {
+  outline: none;
 }
 
 .cell {
@@ -76,6 +84,8 @@
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
   position: relative;
   transition: background-color 0.3s ease;
+  outline: none;
+  user-select: none;
 }
 
 .cell.red {
