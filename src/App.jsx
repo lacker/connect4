@@ -6,8 +6,9 @@ function App() {
   const [board, setBoard] = useState(Array(7).fill().map(() => Array(6).fill(null)));
   const [isRedTurn, setIsRedTurn] = useState(true);
   const [winner, setWinner] = useState(null);
+  const [isDraw, setIsDraw] = useState(false);
 
-  // Check if a player has won after each move
+  // Check if a player has won or if it's a draw after each move
   useEffect(() => {
     const checkWinner = () => {
       const currentColor = isRedTurn ? 'blue' : 'red'; // We check for the color that just played
@@ -71,15 +72,22 @@ function App() {
       return null;
     };
     
+    const checkDraw = () => {
+      // Check if all cells are filled (no null values in any column)
+      return board.every(column => column.every(cell => cell !== null));
+    };
+    
     const winningColor = checkWinner();
     if (winningColor) {
       setWinner(winningColor);
+    } else if (checkDraw()) {
+      setIsDraw(true);
     }
   }, [board, isRedTurn]);
 
   const handleColumnClick = (colIndex) => {
-    // If there's already a winner, don't allow more moves
-    if (winner) return;
+    // If there's already a winner or a draw, don't allow more moves
+    if (winner || isDraw) return;
     
     // Copy the current board
     const newBoard = [...board];
@@ -104,6 +112,7 @@ function App() {
     setBoard(Array(7).fill().map(() => Array(6).fill(null)));
     setIsRedTurn(true);
     setWinner(null);
+    setIsDraw(false);
   };
 
   return (
@@ -113,6 +122,15 @@ function App() {
         <div className="winner-message">
           <div className={`winner-text ${winner}`}>
             {winner.charAt(0).toUpperCase() + winner.slice(1)} wins!
+          </div>
+          <button onClick={resetGame} className="reset-button">
+            Play Again
+          </button>
+        </div>
+      ) : isDraw ? (
+        <div className="winner-message">
+          <div className="winner-text draw">
+            It's a draw!
           </div>
           <button onClick={resetGame} className="reset-button">
             Play Again

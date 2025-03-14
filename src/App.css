@@ -38,6 +38,10 @@
   color: #3498db;
 }
 
+.winner-text.draw {
+  color: #f39c12;
+}
+
 .reset-button {
   background-color: #2ecc71;
   color: white;
